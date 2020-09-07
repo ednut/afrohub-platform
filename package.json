@@ -1,0 +1,78 @@
+{
+  "name": "afrohub-platform",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": "10.16.2"
+  },
+  "scripts": {
+    "dev": "next -p 5000",
+    "build": "next build",
+    "start": "next start  -p $PORT",
+    "heroku-postbuild": "next build"
+  },
+  "dependencies": {
+    "next": "9.5.2",
+    "nprogress": "^0.2.0",
+    "react": "16.13.1",
+    "react-dom": "16.13.1",
+    "styled-components": "^5.1.1"
+  },
+  "devDependencies": {
+    "babel-jest": "^23.6.0",
+    "babel-plugin-module-resolver": "^3.1.1"
+  },
+  "babel": {
+    "env": {
+      "development": {
+        "presets": [
+          "next/babel"
+        ],
+        "plugins": [
+          [
+            "styled-components",
+            {
+              "ssr": true,
+              "displayName": true
+            }
+          ]
+        ]
+      },
+      "production": {
+        "presets": [
+          "next/babel"
+        ],
+        "plugins": [
+          [
+            "styled-components",
+            {
+              "ssr": true,
+              "displayName": true
+            }
+          ]
+        ]
+      },
+      "test": {
+        "presets": [
+          [
+            "next/babel",
+            {
+              "preset-env": {
+                "modules": "commonjs"
+              }
+            }
+          ]
+        ],
+        "plugins": [
+          [
+            "styled-components",
+            {
+              "ssr": true,
+              "displayName": true
+            }
+          ]
+        ]
+      }
+    }
+  }
+}
