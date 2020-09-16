@@ -3,11 +3,12 @@ import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import Meta from './Meta';
 
 const theme = {
-  headerHeight: '80px',
   brandColor: '#3188DD',
   black: '#051441',
   white: '#ffffff',
-  footerColor: '#001329'
+  formBG: '#E6ECF0',
+  titleFont: '2.5rem',
+  captionFont: '1.6rem'
 };
 
 
