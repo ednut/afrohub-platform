@@ -1,11 +1,12 @@
 import styled, { css } from 'styled-components';
 
 const InputStyles = styled.div`
-    margin-bottom: 2rem;
-    margin-top: 3rem;
+    margin-bottom: 1.5rem;
     transition: background-color 0.2s ease;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
+    border-top-left-radius: 0.4rem;
+    border-top-right-radius: 0.4rem;
+    position: relative;
+    width: ${props => props.width ? props.width : '100%'};
 
     .input {
         padding: 1.3rem 1.9rem 1.1rem;
@@ -62,8 +63,8 @@ const InputStyles = styled.div`
     .input:placeholder-shown + .label::before {
         transform: translate3d(0,-3.6rem,0) scale3d(0.82,0.82,1);
         background: transparent;
-        padding: 0 10px;
-        line-height: 15px;
+        padding: 0 1rem;
+        line-height: 1.5rem;
         color: #000000ad;
         font-weight: 400;
         font-size: 1.6rem;
@@ -111,6 +112,16 @@ const InputStyles = styled.div`
         padding: 0;
         position: absolute;
         width: 1px;
+    }
+
+    .error{
+        padding-left: 2rem;
+        font-size: 1.4rem;
+        color: red;
+        display: block;
+        line-height: 2rem;
+        padding-top: 0.2rem;
+        height: 2rem;
     }
 
 `

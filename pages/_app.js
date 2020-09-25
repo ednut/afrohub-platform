@@ -1,6 +1,7 @@
 import App from 'next/app';
 import { Provider } from "react-redux";
 import store from "../store";
+import 'antd/dist/antd.css';
 
 import Page from '../components/Page'
 

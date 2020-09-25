@@ -45,14 +45,16 @@ const FormWrapStyles = styled.div`
         .form-caption{
             font-size: ${props => props.theme.captionFont};
             margin-top: 2rem;
+            margin-bottom: 3rem;
         }
     }
     .forgot-password{
         display: flex;
         justify-content: space-between;
         margin-bottom: 2rem;
+        width: 100%;
         .remember{
-            width:30%;
+            width:50%;
             font-size: 1.4rem;
             input{
                 margin-right: 1rem;
@@ -60,7 +62,7 @@ const FormWrapStyles = styled.div`
             }
         }
         .forgot{
-            width:70%;
+            width:50%;
             text-align: right;
             a{
                 color: ${props => props.theme.brandColor};
@@ -84,6 +86,32 @@ const FormWrapStyles = styled.div`
             font-size: 1.4rem;
             text-decoration: underline;
         }
+    }
+    button{
+        display: inline-block;
+        text-decoration: none;
+        box-shadow: 0 0.8rem 1.5rem rgba(0, 0, 0, 0.1);
+        padding: 1.5rem 3rem;
+        font-size: 1.6rem;
+        border: none;
+        border-radius: 0.8rem;
+        transition: all 0.3s ease 0s;
+        cursor: pointer;
+        outline: none;
+        min-width: 18rem;
+        text-align: center;
+        background:  #3188DD;
+        color: #ffffff;
+        width: 100%;
+        &:disabled{
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    }
+    form{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
     }
 `
 

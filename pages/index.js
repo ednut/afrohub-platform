@@ -1,34 +1,93 @@
+import React, { useState } from 'react';
+import { connect } from "react-redux";
+import { loginRequest } from "../modules/login";
 import FormWrap from '../components/FormWrap';
 import InputStyle from '../components/styles/InputStyles';
 import Link from '../components/Link';
-import ButtonStyle from '../components/styles/ButtonStyle';
+import { Spin } from "antd";
+import { LoadingOutlined } from '@ant-design/icons';
 
 
-export default function Login() {
+
+function Login(props) {
+
+  let initialState = {
+    username: '', 
+    password: ''
+  }
+
+  const [ user, setUser ] = useState(initialState);
+  const [ message, validateInput ] = useState({usernameError: '', passwordError: ''});
+
+  const validate = () => {
+    let usernameError = "";
+    let passwordError = "";
+
+    if (user.username && !user.username.includes('@')){
+      usernameError = 'Invalid Email';
+    }else if(!user.username){
+      usernameError = 'Email is required';
+    }else{
+      usernameError = '';
+    }
+
+    if(!user.password){
+      passwordError = 'Password is required';
+    }
+
+    
+    if (usernameError || passwordError){
+      validateInput(() => {
+        return {
+          ...message,
+          usernameError,
+          passwordError
+        }
+      })
+      return false;
+    }
+    return true;
+    
+    
+  }
+  const submit = (e) => {
+    e.preventDefault();
+    const isValid = validate()
+    if(isValid){
+      props.loginRequest(user)
+    }
+    setUser(() => {
+      return initialState;
+    })
+  }
+  const antIcon = <LoadingOutlined style={{ fontSize: 21, color: '#fff' }} spin />;
+
   return (
     <FormWrap title="Login into afrohub" 
               caption="Choose one of the following sign up methods."
               formCaption="Or login using your email address"
     >
-      <form>
+      <form onSubmit={submit}>
         <InputStyle>
-          <input class="input" type="text" placeholder="Your Email / Username" />
-          <label class="label" data-content="Your Email / Username">
-            <span class="hidden">Your Email / Username</span>     
+          <input className="input" type="text" value={user.username} onChange={ (e) => setUser({...user, username: e.target.value}) } placeholder="Your Email / Username" />
+          <label className="label" data-content="Your Email / Username">
+            <span className="hidden">Your Email / Username</span>     
           </label>
+          <span className="error">{message.usernameError}</span>
         </InputStyle>
 
         <InputStyle>
-          <input class="input" type="password" placeholder="Enter Password" />
-          <label class="label" data-content="Enter Password">
-            <span class="hidden">Enter Password</span>     
+          <input className="input" type="password" value={user.password} onChange={ (e) => setUser({...user, password: e.target.value}) } placeholder="Enter Password" />
+          <label className="label" data-content="Enter Password">
+            <span className="hidden">Enter Password</span>     
           </label>
+          <span className="error">{message.passwordError}</span>
         </InputStyle>
 
         <div className="forgot-password">
           <div className="remember">
             <input id="remember-me" type="checkbox"/>
-            <label for="remember-me">Remember Me</label>
+            <label htmlFor="remember-me">Remember Me</label>
           </div>
           <div className="forgot">
             <Link href="/">
@@ -37,7 +96,13 @@ export default function Login() {
           </div>
         </div>
       
-        <ButtonStyle full>Login</ButtonStyle>
+        <button type="submit">
+              {props.loading ? (
+                <Spin indicator={antIcon} />
+              ) : (
+                "Login"
+              )}
+        </button>
 
         <div className="no-account">
           Don't have an account with AfroHub? <Link href="/signup"><a>Get Started</a></Link>
@@ -47,3 +112,12 @@ export default function Login() {
     </FormWrap>
   )
 }
+
+const mapStateToProps = state => ({
+  loading: state.login.loading
+});
+
+export default connect(
+  mapStateToProps,
+  { loginRequest }
+)(Login);

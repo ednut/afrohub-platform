@@ -1,6 +1,20 @@
 import React, { Component } from 'react';
 import styled, { ThemeProvider, createGlobalStyle } from 'styled-components';
 import Meta from './Meta';
+import NProgress from "nprogress";
+import Router from "next/router";
+
+NProgress.configure({ showSpinner: false });
+
+Router.onRouteChangeStart = () => {
+  NProgress.start();
+};
+Router.onRouteChangeComplete = () => {
+  NProgress.done();
+};
+Router.onRouteChangeError = () => {
+  NProgress.done();
+};
 
 const theme = {
   brandColor: '#3188DD',
